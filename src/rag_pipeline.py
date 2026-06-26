@@ -29,10 +29,16 @@ def build_chain(vectorstore):
     retriever = vectorstore.as_retriever(search_kwargs={'k': 3})
     prompt = PromptTemplate(
         input_variables=['context', 'question'],
-        template='''Responde APENAS com base no contexto abaixo.
-Se a informação não estiver no contexto, diz que não sabes.
+        template='''És um assistente especializado em analisar documentos.
+Responde APENAS com base no contexto abaixo.
+Se a informação não estiver no contexto, diz "Não encontrei essa informação no documento."
 
-Contexto: {context}
+Responde sempre em português de Portugal.
+Usa frases claras e directas.
+Se fizer sentido, usa bullet points para organizar a resposta.
+
+Contexto:
+{context}
 
 Pergunta: {question}
 
